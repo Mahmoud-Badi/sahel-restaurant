@@ -1,6 +1,10 @@
 /* =============================================
    SAHEL — Libyan Coastal Restaurant
-   Design: Mediterranean coastal, warm golden hour
+   Design: Crystal aqua coast + bleached limestone cliffs
+   Palette drawn from the Libyan sahel:
+     — turquoise-teal water of the Mediterranean coast
+     — sun-bleached terracotta and sandy limestone cliffs
+     — pale warm sand, deep palm green, open sky
    Stack: Vanilla CSS, mobile-first, custom properties
    Fonts: Cormorant Garamond (headings) + Karla (body)
    ============================================= */
@@ -10,26 +14,52 @@
 
 /* ─── Design Tokens ────────────────────────── */
 :root {
-  /* Colors — Libyan coastal palette */
+  /* Colors — drawn directly from the Libyan coast photos
+   *
+   * Terracotta / cliff:  the warm orange-red of Libyan limestone rock faces
+   * Aqua / water:        the vivid crystal turquoise of the Sahel coastline
+   * Sand:                bleached pale sand and sun-washed limestone walls
+   * Palm / oasis:        deep olive-green of desert palms
+   * Stone / darks:       warm near-black for text, not cold grey
+   */
+
+  /* Cliff & terracotta */
   --color-terracotta:       #C1613A;
   --color-terracotta-light: #D4795A;
   --color-terracotta-dark:  #9E4B28;
-  --color-gold:             #C4883E;
-  --color-gold-light:       #E2B870;
-  --color-gold-pale:        #F5DFB0;
-  --color-ocean:            #1B4F72;
-  --color-ocean-mid:        #2471A3;
-  --color-ocean-light:      #A9CCE3;
-  --color-sand:             #F4EDE1;
-  --color-parchment:        #FAF6EE;
+
+  /* Limestone gold — the sun-lit cliff face */
+  --color-limestone:        #C8974E;
+  --color-limestone-light:  #DEBC82;
+  --color-limestone-pale:   #F0DEB8;
+
+  /* Crystal water — the defining colour of these photos */
+  --color-aqua:             #0BADA0;
+  --color-aqua-deep:        #088A7E;
+  --color-aqua-light:       #6FD0C8;
+  --color-aqua-pale:        #C2ECEA;
+
+  /* Sky — the vivid open Mediterranean blue from the photos */
+  --color-sky:              #3BAAD4;
+  --color-sky-deep:         #1A7BA8;
+
+  /* Desert palm / oasis green — dark foliage from the dunes photo */
+  --color-palm:             #3A5530;
+  --color-palm-light:       #526E47;
+
+  /* Sand — bleached, warm, sun-drenched */
+  --color-sand:             #EDE3CC;
+  --color-parchment:        #F8F3E8;
   --color-cream:            #FDFAF5;
-  --color-stone:            #2B1A0E;
-  --color-charcoal:         #3D2A1A;
-  --color-smoke:            #7A6455;
-  --color-mist:             #B8A898;
-  --color-border:           #E4D0BC;
-  --color-border-light:     #EFE3D4;
-  --color-overlay:          rgba(43, 26, 14, 0.55);
+
+  /* Darks — warm-toned, never cold grey */
+  --color-stone:            #261609;
+  --color-charcoal:         #3A2412;
+  --color-smoke:            #766050;
+  --color-mist:             #B5A48E;
+  --color-border:           #DFD0B4;
+  --color-border-light:     #EDE3CF;
+  --color-overlay:          rgba(38, 22, 9, 0.60);
 
   /* Typography */
   --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
@@ -192,14 +222,13 @@ a {
   text-decoration: none;
 }
 
-.logo-arabic {
-  font-family: var(--font-display);
-  font-size: var(--text-3xl);
-  font-weight: 400;
-  color: var(--color-terracotta);
-  line-height: 1;
-  letter-spacing: -0.01em;
-  opacity: 0.85;
+.logo-arabic-img {
+  height: 44px;
+  width: auto;
+  display: block;
+  /* multiply blends the white background away on light surfaces */
+  mix-blend-mode: multiply;
+  flex-shrink: 0;
 }
 
 .logo-text {
@@ -375,7 +404,7 @@ a {
 .section-divider {
   width: 60px;
   height: 2px;
-  background: linear-gradient(to right, var(--color-terracotta), var(--color-gold));
+  background: linear-gradient(to right, var(--color-terracotta), var(--color-limestone));
   border-radius: 1px;
   margin: var(--space-4) auto var(--space-6);
 }
@@ -458,6 +487,8 @@ a {
 .hero {
   position: relative;
   background-color: var(--color-stone);
+  background-size: cover;
+  background-position: center;
   overflow: hidden;
   padding: var(--space-20) var(--space-6) var(--space-24);
   display: flex;
@@ -469,10 +500,15 @@ a {
   content: '';
   position: absolute;
   inset: 0;
+  /* Layered gradients evoke the view from a Libyan cliff:
+     — a deep aqua glow rising from below (the crystal water)
+     — a warm terracotta wash on the left (sun-lit rock face)
+     — a dark stone base to keep text readable */
   background:
-    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(196, 136, 62, 0.18) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 10% 80%, rgba(193, 97, 58, 0.15) 0%, transparent 50%),
-    linear-gradient(135deg, rgba(43, 26, 14, 0.95) 0%, rgba(27, 79, 114, 0.75) 100%);
+    radial-gradient(ellipse 100% 55% at 50% 110%, rgba(11, 173, 160, 0.45) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 60% at 5%  70%,  rgba(193, 97, 58, 0.20)  0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 90% 20%,  rgba(200, 151, 78, 0.12) 0%, transparent 50%),
+    linear-gradient(170deg, rgba(38, 22, 9, 0.97) 0%, rgba(8, 138, 126, 0.65) 100%);
   z-index: 0;
 }
 
@@ -484,7 +520,7 @@ a {
   left: 0;
   right: 0;
   height: 80px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80'%3E%3Cpath fill='%23FAF6EE' fill-opacity='1' d='M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1440,20 1440,40 L1440,80 L0,80 Z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80'%3E%3Cpath fill='%23F8F3E8' fill-opacity='1' d='M0,40 C180,80 360,0 540,40 C720,80 900,0 1080,40 C1260,80 1440,20 1440,40 L1440,80 L0,80 Z'/%3E%3C/svg%3E");
   background-size: cover;
   background-repeat: no-repeat;
   z-index: 1;
@@ -507,7 +543,7 @@ a {
   font-weight: 600;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--color-gold-light);
+  color: var(--color-limestone-light);
   margin-bottom: var(--space-5);
 }
 
@@ -517,7 +553,7 @@ a {
   display: block;
   width: 24px;
   height: 1px;
-  background-color: var(--color-gold-light);
+  background-color: var(--color-limestone-light);
   opacity: 0.6;
 }
 
@@ -534,7 +570,7 @@ a {
 
 .hero-headline em {
   font-style: italic;
-  color: var(--color-gold-light);
+  color: var(--color-limestone-light);
 }
 
 .hero-tagline {
@@ -607,7 +643,7 @@ a {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-12);
-  align-items: start;
+  align-items: center;
 }
 
 .about-label {
@@ -642,6 +678,75 @@ a {
   color: var(--color-smoke);
   line-height: 1.8;
   max-width: 56ch;
+}
+
+/* About photo */
+.about-photo-wrap {
+  position: relative;
+  border-radius: var(--border-radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  aspect-ratio: 4 / 5;
+}
+
+.about-photo-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius-xl);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
+  pointer-events: none;
+}
+
+.about-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 600ms ease-out;
+}
+
+.about-photo-wrap:hover .about-photo {
+  transform: scale(1.03);
+}
+
+/* ─── Scenic Strip ──────────────────────────── */
+.scenic-strip {
+  position: relative;
+  height: 340px;
+  background-size: cover;
+  background-position: center 40%;
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+.scenic-strip-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(38, 22, 9, 0.72) 0%,
+    rgba(38, 22, 9, 0.40) 50%,
+    rgba(38, 22, 9, 0.62) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-6);
+}
+
+.scenic-strip-quote {
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-xl), 3vw, var(--text-3xl));
+  font-weight: 300;
+  font-style: italic;
+  color: var(--color-cream);
+  text-align: center;
+  max-width: 60ch;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  opacity: 0.92;
 }
 
 /* Highlights grid */
@@ -694,7 +799,7 @@ a {
   width: 48px;
   height: 48px;
   border-radius: var(--border-radius);
-  background: linear-gradient(135deg, var(--color-terracotta), var(--color-gold));
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-limestone));
   margin-bottom: var(--space-5);
   display: flex;
   align-items: center;
@@ -731,6 +836,8 @@ a {
 /* ─── MENU TAB ──────────────────────────────── */
 .menu-hero {
   background-color: var(--color-stone);
+  background-size: cover;
+  background-position: center;
   padding: var(--space-16) var(--space-6) var(--space-12);
   text-align: center;
   position: relative;
@@ -741,7 +848,9 @@ a {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(196, 136, 62, 0.12) 0%, transparent 70%);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 120%, rgba(11, 173, 160, 0.18) 0%, transparent 65%),
+    linear-gradient(rgba(38, 22, 9, 0.68), rgba(38, 22, 9, 0.68));
 }
 
 .menu-hero-inner {
@@ -806,43 +915,53 @@ a {
 .menu-section-divider {
   width: 48px;
   height: 2px;
-  background: linear-gradient(to right, var(--color-terracotta), var(--color-gold));
+  background: linear-gradient(to right, var(--color-terracotta), var(--color-limestone));
   border-radius: 1px;
   margin-bottom: var(--space-8);
 }
 
 .menu-items {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-6);
 }
 
 .menu-item {
+  background: var(--color-white);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(38, 22, 9, 0.08);
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-4);
-  padding: var(--space-6) 0;
-  border-bottom: 1px solid var(--color-border-light);
-  transition: background-color var(--transition-fast);
+  flex-direction: column;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-.menu-item:last-child {
-  border-bottom: none;
+.menu-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(38, 22, 9, 0.14);
 }
 
-.menu-item-info {
+.menu-item-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.menu-item-body {
+  padding: var(--space-4) var(--space-5) var(--space-5);
+  display: flex;
+  flex-direction: column;
   flex: 1;
-  min-width: 0;
+  gap: var(--space-1);
 }
 
 .menu-item-name {
   font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: 500;
+  font-size: var(--text-lg);
+  font-weight: 600;
   color: var(--color-charcoal);
   letter-spacing: 0.01em;
-  margin-bottom: var(--space-1);
 }
 
 .menu-item-desc {
@@ -850,22 +969,24 @@ a {
   font-size: var(--text-sm);
   font-weight: 300;
   color: var(--color-smoke);
-  line-height: 1.6;
+  line-height: 1.55;
+  flex: 1;
 }
 
 .menu-item-price {
   font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: 500;
+  font-size: var(--text-lg);
+  font-weight: 600;
   color: var(--color-terracotta);
-  white-space: nowrap;
-  flex-shrink: 0;
+  margin-top: var(--space-3);
   font-variant-numeric: tabular-nums;
 }
 
 /* ─── CONTACT TAB ───────────────────────────── */
 .contact-hero {
   background-color: var(--color-stone);
+  background-size: cover;
+  background-position: center 30%;
   padding: var(--space-16) var(--space-6) var(--space-12);
   text-align: center;
   position: relative;
@@ -876,7 +997,9 @@ a {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(27, 79, 114, 0.2) 0%, transparent 70%);
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 120%, rgba(11, 173, 160, 0.15) 0%, transparent 60%),
+    linear-gradient(rgba(38, 22, 9, 0.68), rgba(38, 22, 9, 0.68));
 }
 
 .contact-hero-inner {
@@ -921,27 +1044,46 @@ a {
   font-weight: 400;
   color: var(--color-stone);
   letter-spacing: -0.01em;
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-2);
+}
+
+.contact-info-intro {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  color: var(--color-smoke);
+  margin-bottom: var(--space-7);
+  line-height: 1.6;
 }
 
 .contact-details {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-3);
 }
 
 .contact-detail-item {
   display: flex;
   align-items: flex-start;
   gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(38, 22, 9, 0.05);
+  transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.contact-detail-item:hover {
+  box-shadow: 0 6px 20px rgba(38, 22, 9, 0.10);
+  transform: translateY(-2px);
 }
 
 .contact-detail-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--border-radius);
-  background-color: var(--color-sand);
-  border: 1px solid var(--color-border);
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--color-terracotta), var(--color-limestone));
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -949,23 +1091,29 @@ a {
 }
 
 .contact-detail-icon svg {
-  width: 18px;
-  height: 18px;
-  stroke: var(--color-terracotta);
+  width: 20px;
+  height: 20px;
+  stroke: #fff;
   fill: none;
   stroke-width: 1.5;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
+.contact-detail-text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-top: 2px;
+}
+
 .contact-detail-label {
   font-family: var(--font-body);
-  font-size: var(--text-xs);
-  font-weight: 600;
-  letter-spacing: 0.15em;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-mist);
-  margin-bottom: var(--space-1);
+  color: var(--color-terracotta);
 }
 
 .contact-detail-value {
@@ -973,7 +1121,7 @@ a {
   font-size: var(--text-base);
   font-weight: 400;
   color: var(--color-charcoal);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .hours-row {
@@ -1089,8 +1237,8 @@ a {
 .form-select:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: var(--color-terracotta);
-  box-shadow: 0 0 0 3px rgba(193, 97, 58, 0.12);
+  border-color: var(--color-aqua);
+  box-shadow: 0 0 0 3px rgba(11, 173, 160, 0.14);
   background-color: var(--color-cream);
 }
 
@@ -1251,14 +1399,8 @@ a {
     display: none;
   }
 
-  .menu-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-2);
-  }
-
-  .menu-item-price {
-    font-size: var(--text-lg);
+  .menu-items {
+    grid-template-columns: 1fr;
   }
 
   .reservation-form-wrap {

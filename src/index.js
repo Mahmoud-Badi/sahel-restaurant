@@ -1,64 +1,102 @@
 import "./styles.css";
+import loadHome    from "./tabs/home.js";
+import loadMenu    from "./tabs/menu.js";
+import loadContact from "./tabs/contact.js";
+import sahelLogo   from "./assets/sahel-logo.png";
 
-// TODO: import loadHome, loadMenu, loadContact from their tab modules
-// import loadHome from "./tabs/home.js";
-// import loadMenu from "./tabs/menu.js";
-// import loadContact from "./tabs/contact.js";
+// Set the Arabic calligraphy logo — imported through webpack so it gets
+// a hashed production URL, same as any other bundled asset
+document.getElementById("logo-arabic-img").src = sahelLogo;
 
-// TODO: get a reference to the #content div
-// const contentDiv = document.getElementById("content");
+const content    = document.getElementById("content");
+const navButtons = document.querySelectorAll(".nav-btn");
 
-// TODO: get references to all three nav buttons
-// const navButtons = document.querySelectorAll(".nav-btn");
+// Maps each button's label to the function that builds that tab's content
+const tabLoaders = {
+  Home:    loadHome,
+  Menu:    loadMenu,
+  Contact: loadContact,
+};
 
-// ─── setActiveTab ───────────────────────────────────────────────────────────
-// TODO: write a helper that:
-//   1. Removes .btn-active and aria-current="page" from ALL nav buttons
-//   2. Adds .btn-active and aria-current="page" to the clicked button only
-// const setActiveTab = (activeButton) => { ... };
+// Removes the active class from every button, then applies it only to the
+// one that was just clicked — also updates aria-current for screen readers
+const setActiveTab = (activeButton) => {
+  navButtons.forEach((btn) => {
+    btn.classList.remove("btn-active");
+    btn.removeAttribute("aria-current");
+  });
+  activeButton.classList.add("btn-active");
+  activeButton.setAttribute("aria-current", "page");
+};
 
-// ─── loadTab ─────────────────────────────────────────────────────────────────
-// TODO: write a helper that:
-//   1. Clears contentDiv.innerHTML (or removes all child nodes)
-//   2. Adds the .tab-enter CSS class to contentDiv to trigger the entrance animation
-//      (remove it first if already present, then re-add so it fires each time)
-//   3. Calls the correct loader function passed in as an argument
-//   4. Moves focus to contentDiv for keyboard/screen-reader users
-// const loadTab = (loaderFn) => { ... };
+// Clears #content, triggers the entrance animation, then calls the right loader
+const loadTab = (loaderFn) => {
+  // Remove all existing child nodes — safer than clearing innerHTML
+  while (content.firstChild) {
+    content.removeChild(content.firstChild);
+  }
 
-// ─── Event listeners ─────────────────────────────────────────────────────────
-// TODO: loop over navButtons and add a "click" listener to each one.
-//       Each listener should:
-//         - call setActiveTab(button)
-//         - call loadTab with the matching loader:
-//             button text "Home"    → loadHome
-//             button text "Menu"    → loadMenu
-//             button text "Contact" → loadContact
-//
-// navButtons.forEach((button) => {
-//   button.addEventListener("click", () => {
-//     setActiveTab(button);
-//     // match button.textContent.trim() to the right loader
-//   });
-// });
+  // Remove the class first so re-clicking the same tab still replays the animation
+  content.classList.remove("tab-enter");
+  // A tiny timeout lets the browser register the removal before we re-add
+  setTimeout(() => content.classList.add("tab-enter"), 10);
 
-// ─── Header scroll effect ────────────────────────────────────────────────────
-// TODO (optional enhancement): add/remove the .scrolled class on .site-header
-//   when the page scrolls past a threshold — the CSS already has styles for it.
-// window.addEventListener("scroll", () => {
-//   const header = document.querySelector(".site-header");
-//   header.classList.toggle("scrolled", window.scrollY > 20);
-// }, { passive: true });
+  loaderFn();
 
-// ─── Mobile nav toggle ───────────────────────────────────────────────────────
-// TODO (optional enhancement): wire up the .nav-toggle button to
-//   open/close the mobile nav by toggling .nav-open on .site-nav
-//   and .open on the toggle button itself.
-//   Update aria-expanded on the toggle button each time.
-// const navToggle = document.querySelector(".nav-toggle");
-// const siteNav   = document.querySelector(".site-nav");
-// navToggle.addEventListener("click", () => { ... });
+  // Move focus to #content so keyboard/screen-reader users know the page changed
+  content.focus();
+};
 
-// ─── Initial page load ───────────────────────────────────────────────────────
-// TODO: call loadHome() so the Home tab renders when the page first opens
-// loadHome();
+// Wire up every nav button with a single loop
+navButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    setActiveTab(button);
+    const loader = tabLoaders[button.textContent.trim()];
+    if (loader) loadTab(loader);
+  });
+});
+
+// Scroll effect — adds a shadow to the header once the user scrolls down
+const header = document.querySelector(".site-header");
+window.addEventListener(
+  "scroll",
+  () => header.classList.toggle("scrolled", window.scrollY > 20),
+  { passive: true }
+);
+
+// Mobile nav toggle
+const navToggle = document.querySelector(".nav-toggle");
+const siteNav   = document.querySelector(".site-nav");
+
+navToggle.addEventListener("click", () => {
+  const isOpen = siteNav.classList.toggle("nav-open");
+  navToggle.classList.toggle("open", isOpen);
+  navToggle.setAttribute("aria-expanded", String(isOpen));
+});
+
+// Close mobile nav when a tab is selected
+navButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    siteNav.classList.remove("nav-open");
+    navToggle.classList.remove("open");
+    navToggle.setAttribute("aria-expanded", "false");
+  });
+});
+
+// Hero CTA — "Explore Our Menu" button switches to the Menu tab.
+// Uses event delegation: one listener on the document catches the click
+// even though the button is created dynamically by loadHome().
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("hero-cta")) {
+    const menuBtn = [...navButtons].find(
+      (btn) => btn.textContent.trim() === "Menu"
+    );
+    if (menuBtn) {
+      setActiveTab(menuBtn);
+      loadTab(loadMenu);
+    }
+  }
+});
+
+// Render the Home tab on first load
+loadTab(loadHome);
