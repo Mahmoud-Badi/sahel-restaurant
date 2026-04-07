@@ -2,7 +2,8 @@
 
 A restaurant page built as part of [The Odin Project](https://www.theodinproject.com/) JavaScript curriculum.
 
-**[Live Demo →](https://mahmoud-badi.github.io/sahel-restaurant/)**
+## Live Demo!
+https://mahmoud-badi.github.io/sahel-restaurant/
 
 ## What it is
 
