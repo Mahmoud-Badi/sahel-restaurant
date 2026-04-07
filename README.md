@@ -7,16 +7,7 @@ https://mahmoud-badi.github.io/sahel-restaurant/
 
 ## Preview
 
-![Home page](screenshots/home.png)
-
-<details>
-<summary>More screenshots</summary>
-
-![Menu — Starters](screenshots/menu-starters.png)
-![Menu — Mains](screenshots/menu-mains.png)
-![Menu — Desserts](screenshots/menu-desserts.png)
-
-</details>
+![Sahel Restaurant](screenshots/preview.png)
 
 ## What it is
 
