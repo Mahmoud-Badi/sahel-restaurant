@@ -16,7 +16,7 @@ A multi-tab restaurant website for Sahel, a fictional Libyan coastal restaurant 
 ## What it covers
 
 - DOM manipulation with `createElement` and `appendChild` (no `innerHTML`)
-- ES6 modules — each tab is its own module with a default export
+- ES6 modules: each tab is its own module with a default export
 - Tab switching with event listeners and dynamic content loading
 - Webpack for bundling JS, CSS, and image assets
 
