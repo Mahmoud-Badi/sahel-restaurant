@@ -2,6 +2,8 @@
 
 A restaurant page built as part of [The Odin Project](https://www.theodinproject.com/) JavaScript curriculum.
 
+**[Live Demo →](https://mahmoud-badi.github.io/sahel-restaurant/)**
+
 ## What it is
 
 A multi-tab restaurant website for Sahel, a fictional Libyan coastal restaurant set in Ra's Al Hilal. All page content is generated with JavaScript — nothing is hardcoded in the HTML body.
@@ -30,7 +32,7 @@ Then open `http://localhost:8080`.
 
 ## Images
 
-All food dish images were AI-generated using DALL-E 3 via Cursor's built-in image generation tool, prompted to match authentic Libyan dishes with a clifftop Mediterranean restaurant setting.
+All food dish images were AI-generated using DALL-E 3, prompted to match authentic Libyan dishes with a clifftop Mediterranean restaurant setting.
 
 ## Build
 
