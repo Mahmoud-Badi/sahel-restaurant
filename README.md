@@ -5,6 +5,19 @@ A restaurant page built as part of [The Odin Project](https://www.theodinproject
 ## Live Demo!
 https://mahmoud-badi.github.io/sahel-restaurant/
 
+## Preview
+
+![Home page](screenshots/home.png)
+
+<details>
+<summary>More screenshots</summary>
+
+![Menu — Starters](screenshots/menu-starters.png)
+![Menu — Mains](screenshots/menu-mains.png)
+![Menu — Desserts](screenshots/menu-desserts.png)
+
+</details>
+
 ## What it is
 
 A multi-tab restaurant website for Sahel, a fictional Libyan coastal restaurant set in Ra's Al Hilal. All page content is generated with JavaScript — nothing is hardcoded in the HTML body.
