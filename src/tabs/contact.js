@@ -70,7 +70,7 @@ const loadContact = () => {
   contactHero.appendChild(contactHeroInner);
   content.appendChild(contactHero);
 
-  // ── SECTION 2: Contact Body ───────────────────────────────────────────────
+  // Contact Body 
 
   const contactBody = document.createElement("div");
   contactBody.classList.add("contact-body");
@@ -78,7 +78,7 @@ const loadContact = () => {
   const contactInner = document.createElement("div");
   contactInner.classList.add("contact-inner");
 
-  // ── Left column: contact info ─────────────────────────────────────────────
+  // Left column: contact info 
 
   const infoCol = document.createElement("div");
   infoCol.classList.add("content-fade");
@@ -132,10 +132,10 @@ const loadContact = () => {
 
   contactDetails.appendChild(createDetailItem(pinPath,   "Address", "Ra\u2019s Al Hilal, Libya"));
   contactDetails.appendChild(createDetailItem(phonePath, "Phone",   "+218 84 333 4567"));
-  contactDetails.appendChild(createDetailItem(emailPath, "Email",   "hello@sahelrestaurant.com"));
+  contactDetails.appendChild(createDetailItem(emailPath, "Email",   "mahmoudbadi@sahelrestaurant.com"));
   contactDetails.appendChild(createDetailItem(clockPath, "Hours",   hoursBlock));
 
-  // ── Right column: reservation form ───────────────────────────────────────
+  // Right column: reservation form 
 
   const formCol = document.createElement("div");
   formCol.classList.add("content-fade");
