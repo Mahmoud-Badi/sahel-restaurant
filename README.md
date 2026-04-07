@@ -11,7 +11,7 @@ https://mahmoud-badi.github.io/sahel-restaurant/
 
 ## What it is
 
-A multi-tab restaurant website for Sahel, a fictional Libyan coastal restaurant set in Ra's Al Hilal. All page content is generated with JavaScript — nothing is hardcoded in the HTML body.
+A multi-tab restaurant website for Sahel, a fictional Libyan coastal restaurant set in Ra's Al Hilal. All page content is generated with JavaScript without hardcoded HTML body.
 
 ## What it covers
 
